@@ -24,15 +24,24 @@ export default function UseStatePage() {
     return (
         <div>
             <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>Add</button><br />
-            <button onClick={() => count > 0 && setCount(count - 1)}>Sub</button>
+            <button onClick={() => setCount(prev => prev + 1)}>Add</button><br />
+            <button onClick={() => setCount(prev => (prev > 0 ? prev - 1 : 0))}>Sub</button>
 
             <p>Nombre: {name}</p>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
             <p>Users: {users.join(', ')}</p>
             <input type="text" value={usersVals} id="users" onChange={(e) => setUsersVals(e.target.value)} />
-            <button onClick={() => setUsers([...users, usersVals])}>Add user</button>
+            <button
+                onClick={() => {
+                    if (usersVals.trim()) {
+                        setUsers([...users, usersVals]);
+                        setUsersVals(''); // ← esto limpia el input
+                    }
+                }}
+            >
+                Add user
+            </button>
             <button onClick={() => setUsers([])}>Clear</button>
 
             <p>User: {user.name}</p>
