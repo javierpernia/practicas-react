@@ -1,4 +1,3 @@
-// DarkModeToggle.tsx
 'use client';
 
 import { useTheme } from './themes/ThemeContext';
