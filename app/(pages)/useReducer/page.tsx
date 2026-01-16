@@ -16,13 +16,20 @@ type Action =
 function todoReducer(state: Todo[], action: Action): Todo[] {
   switch (action.type) {
     case 'ADD':
-      return [...state, { id: Date.now(), text: action.payload, completed: false }];
+      return [
+        ...state,
+        { id: Date.now(), text: action.payload, completed: false }];
+
     case 'TOGGLE':
       return state.map(todo =>
-        todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo
+        todo.id === action.payload
+          ? { ...todo, completed: !todo.completed }
+          : todo
       );
+
     case 'DELETE':
       return state.filter(todo => todo.id !== action.payload);
+
     default:
       return state;
   }
@@ -38,6 +45,7 @@ export default function TodoApp() {
       dispatch({ type: 'ADD', payload: input.trim() });
       setInput('');
     }
+    console.log(todos);
   };
 
   return (
